@@ -1,0 +1,12 @@
+/* Spreadsheet specific styling */
+.spreadsheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* 16px gap */
+}
+.spreadsheet table {
+  width: auto;
+}
+.spreadsheet button {
+  align-self: flex-start;
+}

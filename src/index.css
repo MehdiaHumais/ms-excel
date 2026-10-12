@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --panel: 247 248 250;
+  --cell: 255 255 255;
+  --line: 224 226 230;
+  --line-strong: 201 205 212;
+  --text: 24 26 30;
+  --text-muted: 100 106 115;
+  --accent: 52 85 221;
+  --accent-soft: 223 233 255;
+  --grid-header: 242 243 245;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.12);
+  /* Fallbacks for the workbook theme; App.tsx overrides these per workbook. */
+  --wb-accent: 52 85 221;
+  --wb-accent-soft-light: 223 233 255;
+  --wb-accent-soft-dark: 40 53 97;
+  --wb-accent-soft: var(--wb-accent-soft-light);
+  --wb-header: 242 243 245;
+  --wb-font-body: Calibri, sans-serif;
+  --wb-font-heading: 'Calibri Light', Calibri, sans-serif;
+}
+
+/* The workbook theme owns the accent + fonts once App.tsx publishes them. */
+:root[style*='--wb-accent'] {
+  --accent: var(--wb-accent);
+  --accent-soft: var(--wb-accent-soft);
+  --grid-header: var(--wb-header);
+}
+
+:root[style*='--wb-accent'] body {
+  font-family: var(--wb-font-body);
+}
+
+.dark {
+  --panel: 26 27 30;
+  --cell: 31 33 38;
+  --line: 51 54 61;
+  --line-strong: 76 80 89;
+  --text: 222 226 230;
+  --text-muted: 130 136 145;
+  --accent: 97 122 247;
+  --accent-soft: 40 53 97;
+  --grid-header: 36 38 43;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+  --wb-header-dark: 26 30 40;
+  --wb-accent-soft: var(--wb-accent-soft-dark);
+}
+
+/* Dark mode keeps its own soft/header tints but still follows the theme accent. */
+.dark[style*='--wb-accent'] {
+  --accent: var(--wb-accent);
+  --accent-soft: var(--wb-accent-soft);
+  --grid-header: var(--wb-header-dark);
+}
+
+/* ----------------------------- Grid / selection ------------------------- */
+
+.grid-cell {
+  cursor: cell;
+}
+
+.grid-cell-selected {
+  z-index: 3;
+}
+
+.grid-cell-active {
+  z-index: 4;
+  box-shadow:
+    inset 0 0 0 2px rgb(var(--accent)),
+    0 0 0 1px rgb(var(--accent));
+}
+
+.grid-cell-merged {
+  z-index: 2;
+}
+
+.grid-fill-handle {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 7px;
+  height: 7px;
+  background: rgb(var(--accent));
+  border: 1px solid rgb(var(--cell));
+  cursor: crosshair;
+  z-index: 6;
+}
+
+/* View > Split: draggable divider bars between the two panes. */
+.grid-split-bar {
+  background: transparent;
+}
+
+.grid-split-bar:hover {
+  background: rgb(var(--accent) / 0.35);
+}
+
+.cell-display {
+  pointer-events: none;
+}
+
+.editable-overlay input {
+  outline: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: rgb(var(--text));
+  background: rgb(var(--panel));
+  font-size: 13px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line-strong) / 0.6);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--line-strong) / 0.9);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
